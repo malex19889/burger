@@ -13,6 +13,7 @@ function printQuestionMarks(num) {
 // helper function to convert object key/value pairs to SQL syntax
 function objToSql(ob) {
     var arr = [];
+
     for (var key in ob) {
         var value = ob[key];
         // check to skip hidden properties
@@ -27,6 +28,7 @@ function objToSql(ob) {
     return arr.toString();
 }
 
+// object for all sql statement functions
 var orm = {
     // select all burgers in the database
     selectAll: function(table, cb) {
