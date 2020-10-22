@@ -25,7 +25,9 @@ router.put("/api/burgers/:id", function(req, res) {
     var condition = "id = " + req.params.id;
   
     console.log("condition", condition);
-  
+  /* needs work to update back to false...
+  review MVC activs...
+  burger devoured status updater*/
     burger.updateOne(
       {
         devoured: true
