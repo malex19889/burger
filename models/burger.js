@@ -9,8 +9,8 @@ const burger = {
     });
    },
    // add a burger to the database
-   insertOne: function(col,val,cb){
-       orm.insertOne("burgers",col,val,function(res){
+   insertOne: function(burgerName,cb){
+       orm.insertOne("burgers",["burger_name"],[burgerName],function(res){
            cb(res);
        });
    },

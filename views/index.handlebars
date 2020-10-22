@@ -1,0 +1,67 @@
+<div class="container">
+<h1 style="text-align: center;">Eat-Da-Burger</h1>
+<div class="row"><img src="/assets/img/burger.png" alt="burger.png"></div>
+<div class="row">
+    <div class="col-md-6">
+        <ul>
+            {{#each burger}}
+            {{#unless devoured}}
+            <p><button type="button" class="btn btn-danger devoure" data-id="{{this.id}}" >Devoure It!</button> {{this.id}}.{{this.burger_name}} </p>
+
+            {{/unless}}
+            {{/each}}
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <ul>
+            {{#each burger}}
+            {{#if devoured}}
+            <p><button type="button" class="btn btn-danger replace" data-id="{{this.id}}" >Replace It!</button> {{this.id}}.{{this.burger_name}} </p>
+            {{/if}}
+            {{/each}}
+        </ul>
+    </div>
+</div>
+<h2>Add a burger</h2>
+<div class="container">
+    <form>
+        <div class="form-group">
+            <input type="burger" class="form-control" id="burger" aria-describedby="addburger">
+        </div>
+        <button type="submit" class="btn btn-primary" id="add">Add</button>
+    </form>
+</div>
+
+</div>
+</div>
+<script>
+    $("#add").on("click", function (event) {
+        event.preventDefault();
+        var newBurger = { burger_name: $("#burger").val().trim() }
+        $.post("/api/burgers", newBurger)
+            .then(function () {
+                $("#burger").val("");
+                location.reload();
+            })
+    })
+
+    $(".devoure").on("click", function(event) {
+        event.preventDefault();
+
+        let id = $(this).data("id");
+        console.log(id)
+        let devoured = {
+            devoured: true
+        };
+
+        // Send the PUT request.
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: devoured
+        }).then(function() {
+            location.reload();
+        });
+    });
+
+  
+</script>
